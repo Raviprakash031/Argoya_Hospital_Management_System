@@ -1,0 +1,112 @@
+class Hospital{
+  private HashMap<Integer,Patients>patients=new HashMap<Integer,Patients>();
+  public void addPatientDetails(Patients patient){
+      patients.put(patient.getId(),patient);
+    System.out.println("Patient Details added successfully");
+  }
+  public void listofPatientsDetails(){
+    boolean check =patients.isEmpty();
+    if(check==false){
+    for(Patients patient:patients.values()){
+    System.out.println("Id:"+patient.getId());
+    System.out.println("Name:"+patient.getName());
+    System.out.println("Age: "+patient.getAge());
+    System.out.println("Gender: "+patient.getGender());
+    System.out.println("Mobile: "+patient.getContactNumber());
+    System.out.println("city: "+patient.getCity());
+    System.out.println("Address: "+patient.getAddress());
+      System.out.println("date of admission"+patient.getDateOfAdmission());
+    System.out.println("Gyardians Name: "+patient.getGuardiansName());
+    System.out.println("Guardians Address: "+patient.getGuardiansAddress());
+    System.out.println("Guardians Mobile:"+patient.getGuardiansContact());
+    }
+    }
+    else{
+      System.out.println("Collection is empty");
+    }
+  }
+  public Patients getPatientById(int id){
+    return patients.get(id);
+  }
+  List<Patients> getPatientByCity(String city){
+    List<Patients> inCity=new ArrayList<>();
+    for(Patients patient:patients.values()){
+      if(patient.getCity().equalsIgnoreCase(city)){
+        inCity.add(patient);
+      }
+    }
+    return inCity;
+  }
+  List<Patients> getAgeGroup(int maxAge,int minAge){
+   List<Patients> byAge=new ArrayList<>();
+    for(Patients patient:patients.values()){
+      //Exception Handling
+      try{
+        if(patient.getAge()<0){
+          throw new InvalidAgeException("age sholuld be greater than 0");
+        }
+        else{
+          if(patient.getAge()>=minAge && patient.getAge()<=maxAge){
+             byAge.add(patient);
+           }
+        }
+      }
+      catch(InvalidAgeException e){
+        System.out.println(e.getMessage());
+      }
+    }
+    return byAge;
+  }
+    
+    
+  
+  public void deletePatientDetails(int id){
+    boolean check =patients.isEmpty();
+    //Exception handling
+    try{
+    if(check!=false){
+      throw new InvalidIdException("id is not valid");
+    }
+    else{
+      patients.remove(id);
+      System.out.println(id+"patient will be deleted");
+    }
+    }
+    catch(InvalidIdException e){
+      System.out.println(e.getMessage());
+    }
+    System.out.println("no details found for that id");
+  }
+  public void displayAllPatient(){
+    boolean check =patients.isEmpty();
+    if(check==false){
+    for(Patients patient:patients.values()){
+    System.out.println("Id:"+patient.getId());
+    System.out.println("Name:"+patient.getName());
+    System.out.println("Age: "+patient.getAge());
+    System.out.println("Gender: "+patient.getGender());
+    System.out.println("Mobile: "+patient.getContactNumber());
+    System.out.println("city: "+patient.getCity());
+    System.out.println("Address: "+patient.getAddress());
+      System.out.println("date of admission"+patient.getDateOfAdmission());
+    System.out.println("Gyardians Name: "+patient.getGuardiansName());
+    System.out.println("Guardians Address: "+patient.getGuardiansAddress());
+    System.out.println("Guardians Mobile:"+patient.getGuardiansContact());
+    }
+    }
+    else{
+      System.out.println("Collection is empty");
+    }
+  }
+  public void checkPatientRecovered(int id){
+    Patients patient=patients.get(id);
+    if(patient!=null){
+      
+      System.out.println(patient.isRecovered()+"patient is not recoverd");
+      
+    }
+    else{
+      System.out.println("There is no patient to recoverd");
+    }
+  }
+}

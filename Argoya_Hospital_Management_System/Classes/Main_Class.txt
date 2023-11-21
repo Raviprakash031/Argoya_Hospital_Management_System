@@ -1,0 +1,179 @@
+public class ArogyaHospitalProgram{
+  public static void main(String [] args) throws Exception{
+    Scanner sc=new Scanner(System.in);
+    Hospital hos=new Hospital();
+     while(true){
+      System.out.println("*******Welcome to student management System**********");
+    System.out.println("1.addPatientDetails\n2.Display list of patients\n3.Patient details by id\n4.getpatient by city\n5.patient details by age\n6.delete patients by id\n7.dispaly patient details\n8.recovered or not");
+    System.out.println("enteer the choice");
+    int choice=sc.nextInt();
+    switch(choice){
+      case 1:
+    //System.out.println("enter the number of patients ");
+    //int n=sc.nextInt();
+    //Patients a[]=new Patients[n];
+    //for(int i=0;i<n;i++){*/
+    //Patients pat=new Patients("ravi", 21," male", 4672845, 6303,"vijayawada"," ummayapalli","16-04-2025", "mohan","ummayapalli", 967692);
+    //Patients pat1=new Patients("prasad",21,"male",630371,3698452,"Mangalagiri","palakullu","12-9-2022","gana","palakullu",967693);
+    //hos.addPatientDetails(pat);
+    System.out.println("enter the name of the patient");
+        sc.nextLine();
+      String Name=sc.nextLine();
+       System.out.println("enter the age of the patient");
+      int age=sc.nextInt();
+       if(age<0){
+         System.out.println("age should be greater than 0");
+         return;
+       } 
+      System.out.println("enter the gender of the patient");
+        sc.nextLine();
+      String gender=sc.nextLine();
+      System.out.println("enter the aadhar of the patient");
+      long aadharCardNumber=sc.nextLong();
+        if(100000000000l <=aadharCardNumber && 999999999999l>=aadharCardNumber){
+            aadharCardNumber=aadharCardNumber;
+          }
+          else{
+            try{
+              throw new InvalidAadharNumber("Invalid Aadhar Number");
+            }
+            catch(InvalidAadharNumber e){
+              System.out.println("Exception: "+e.getMessage());
+            }
+          }
+      System.out.println("enter the mobile of the patient");
+        //validations
+        long contactNumber=sc.nextLong();
+        if(1000000000l<=contactNumber && 9999999999l>=contactNumber){
+            contactNumber=contactNumber;
+          }
+          else{
+            try{
+              throw new InvalidContactNumber("InvalidMobileNumber");
+            }
+            catch(InvalidContactNumber e){
+              System.out.print("Exception: "+e.getMessage());
+            }
+          }
+      System.out.println("enter the city of the patient");
+        sc.nextLine();
+      String city=sc.nextLine();
+      System.out.println("enter the address of the patient");
+      String address=sc.nextLine();
+      System.out.println("enter the date of admission of the patient");
+      String dateOfAdmission=sc.nextLine();
+        DateFormat date=new SimpleDateFormat("DD-MM-YYYY");
+        Date presentDate=date.parse(dateOfAdmission);
+      System.out.println("enter the guardians name of the patient");
+      String gurdiansName=sc.nextLine();
+      System.out.println("enter the guardians address of the patient");
+      String guardiansAddress=sc.nextLine();
+      System.out.println("enter the guardians contact of the patient");
+      long guardiansContact=sc.nextLong();
+    Patients p=new Patients(Name,age,gender,aadharCardNumber,contactNumber,city,address,presentDate,gurdiansName,guardiansAddress,guardiansContact);
+        hos.addPatientDetails(p);
+        
+    break;
+      case 2:
+        System.out.println("Display list of patient details");
+       hos.listofPatientsDetails();
+        break;
+      case 3:
+        System.out.println("enter the id to dispaly the patient based on id");
+    Patients retrivedPatient=hos.getPatientById(sc.nextInt());
+    if(retrivedPatient!=null){
+    System.out.println("patient details by Id are:");
+    System.out.println("Name:"+retrivedPatient.getName());
+    System.out.println("Age: "+retrivedPatient.getAge());
+    System.out.println("Gender: "+retrivedPatient.getGender());
+    System.out.println("Mobile: "+retrivedPatient.getContactNumber());
+    System.out.println("city: "+retrivedPatient.getCity());
+    System.out.println("Address: "+retrivedPatient.getAddress());
+      System.out.println("date of admission"+retrivedPatient.getDateOfAdmission());
+    System.out.println("Gyardians Name: "+retrivedPatient.getGuardiansName());
+    System.out.println("Guardians Address: "+retrivedPatient.getGuardiansAddress());
+    System.out.println("Guardians Mobile:"+retrivedPatient.getGuardiansContact());
+      sc.nextLine();
+    }
+    else {
+      System.out.println("no patient details fot that id ");
+    }
+
+    break;
+      case 4:
+        System.out.println("enter the city name to display");
+        sc.nextLine();
+    List<Patients> cityVija=hos.getPatientByCity(sc.nextLine());
+     if(cityVija!=null){   
+    for(Patients patient:cityVija){
+    System.out.println("patient details by city are");
+     System.out.println("Id:"+patient.getId());
+    System.out.println("Name:"+patient.getName());
+    System.out.println("Age: "+patient.getAge());
+    System.out.println("Gender: "+patient.getGender());
+    System.out.println("Mobile: "+patient.getContactNumber());
+    System.out.println("city: "+patient.getCity());
+    System.out.println("Address: "+patient.getAddress());
+      System.out.println("date of admission"+patient.getDateOfAdmission());
+    System.out.println("Gyardians Name: "+patient.getGuardiansName());
+    System.out.println("Guardians Address: "+patient.getGuardiansAddress());
+    System.out.println("Guardians Mobile:"+patient.getGuardiansContact());
+      sc.nextLine();
+    }
+       
+      
+  }
+  else{
+          System.out.println("Patient details is not found for that city");
+        }
+    
+       break;
+      case 5:
+        System.out.println("enter the min and max age");
+    int maxAge=sc.nextInt();
+    int minAge=sc.nextInt();
+    List<Patients> ageGroup=hos.getAgeGroup(maxAge,minAge);
+        if(ageGroup!=null){
+      for(Patients patient:ageGroup){
+    System.out.println("patient details by the age group between the min and max age are:");
+    System.out.println("Id:"+patient.getId());
+    System.out.println("Name:"+patient.getName());
+    System.out.println("Age: "+patient.getAge());
+    System.out.println("Gender: "+patient.getGender());
+    System.out.println("Mobile: "+patient.getContactNumber());
+    System.out.println("city: "+patient.getCity());
+    System.out.println("Address: "+patient.getAddress());
+        System.out.println("date of admission"+patient.getDateOfAdmission());
+    System.out.println("Gyardians Name: "+patient.getGuardiansName());
+    System.out.println("Guardians Address: "+patient.getGuardiansAddress());
+    System.out.println("Guardians Mobile:"+patient.getGuardiansContact());
+      }
+      
+      
+    }
+        else{
+          System.out.println("Patient details is not found for that age");
+        }
+       break;
+      case 6:
+        System.out.println("enter the id to rmove the details");
+        hos.deletePatientDetails(sc.nextInt());
+        
+        break;
+      case 7:
+        
+       System.out.println("Display patient details");
+       hos.displayAllPatient();
+        break;
+      case 8:
+        System.out.println("enter the id that patient is recovered");
+        hos.checkPatientRecovered(sc.nextInt());
+        
+        break;
+      default:
+        System.out.println("invalid choice");
+        System.exit(0);
+    }
+    }
+  }
+}

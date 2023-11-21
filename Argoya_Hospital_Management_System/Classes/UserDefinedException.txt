@@ -1,0 +1,10 @@
+class InvalidContactNumber extends Exception{
+  InvalidContactNumber(String msg){
+    super(msg);
+  }
+}
+class InvalidAadharNumber extends Exception{
+  InvalidAadharNumber(String msg){
+    super(msg);
+  }
+}
